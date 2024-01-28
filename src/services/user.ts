@@ -31,6 +31,16 @@ class UserService {
     });
   }
 
+  public static decodeJWTToken(token: string) {
+    return JWT.verify(token, JWT_SECRET as string);
+  }
+
+  public static async getUserById(id: string) {
+    return await prisma.user.findUnique({
+      where: { id },
+    });
+  }
+
   public static async createUser({ user }: CreateUserPayload) {
     const { password } = user;
     const salt = randomBytes(32).toString("hex");

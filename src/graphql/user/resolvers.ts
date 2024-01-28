@@ -8,6 +8,15 @@ const queries = {
     const token = await UserService.getUserToken({ user });
     return token;
   },
+
+  getCurrentLoggedInUser: async (_: any, __: any, context: any) => {
+    if (context && context.user) {
+      const id = context.user.id;
+      const user = await UserService.getUserById(id);
+      return user;
+    }
+    throw new Error("User not found");
+  },
 };
 
 const mutations = {
