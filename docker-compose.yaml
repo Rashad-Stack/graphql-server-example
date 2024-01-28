@@ -1,16 +1,15 @@
 version: "3.8"
 services:
   postgres:
-    container_name: postgres
+    container_name: graphql-db
     image: postgres
-    restart: unless-stopped
     ports:
       - 5432:5432
     volumes:
       - postgres_data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: postgres
+      POSTGRES_DB: graphql
+      POSTGRES_PASSWORD: graphql
 volumes:
   postgres_data:
