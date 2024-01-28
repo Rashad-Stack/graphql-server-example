@@ -20,6 +20,6 @@ import createApolloGraphqlServer from "./graphql";
       console.log(`👍 Server running on port ${PORT}`);
     });
   } catch (error) {
-    console.error(`😡 Error: ${error}`);
+    console.error(`😡 ${error}`);
   }
 })();

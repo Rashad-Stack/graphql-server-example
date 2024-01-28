@@ -1,6 +1,6 @@
 export const typeDefs = `#graphql
    type Query {
-        hello: String
+        getUserToken(user:GetUserTokenInput): String
     }
 
     type Mutation {
@@ -13,5 +13,8 @@ export const typeDefs = `#graphql
         email: String!
         password: String!
     }
-
+    input GetUserTokenInput {
+        email: String!
+        password: String!
+    }
 `;
