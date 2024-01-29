@@ -32,7 +32,25 @@ const queries = {
     ),
 };
 
-const mutations = {};
+type CreateUserPayload = {
+  name: string;
+  username: string;
+  age: number;
+  nationality: string;
+};
+
+const mutations = {
+  createUser(_: any, { input }: { input: CreateUserPayload }) {
+    const user = {
+      ...input,
+      friends: [],
+      id: users.length + 1,
+    };
+    users.push(user);
+
+    return user;
+  },
+};
 
 const User = {
   favoriteMovies: () =>
@@ -44,7 +62,7 @@ const User = {
 
 const resolvers = {
   Query: queries,
-  // Mutation: mutations,
+  Mutation: mutations,
   User,
 };
 
