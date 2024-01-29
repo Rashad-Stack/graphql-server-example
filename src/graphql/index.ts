@@ -1,21 +1,12 @@
 import { ApolloServer } from "@apollo/server";
-import { Post } from "./post";
-import User from "./user";
+import resolvers from "./schema/resolvers";
+import { typeDefs } from "./schema/typeDefs";
 
 export default async function createApolloGraphqlServer() {
   // create a new apollo server instance
   const server = new ApolloServer({
-    typeDefs: [User.typeDefs, Post.typeDefs],
-    resolvers: {
-      Query: {
-        ...User.resolvers.queries,
-        ...Post.resolvers.queries,
-      },
-      Mutation: {
-        ...User.resolvers.mutations,
-        ...Post.resolvers.mutations,
-      },
-    },
+    typeDefs,
+    resolvers,
   });
   await server.start();
   return server;
