@@ -26,6 +26,7 @@ const queries = {
   },
 
   movies: () => movies,
+
   movie: (_: any, { name }: { name: string }) =>
     movies.find((movie) =>
       movie.name.toLowerCase().includes(name.toLowerCase()),
@@ -39,6 +40,13 @@ type CreateUserPayload = {
   nationality: string;
 };
 
+type UpdateUserPayload = {
+  name?: string;
+  username?: string;
+  age?: number;
+  nationality?: string;
+};
+
 const mutations = {
   createUser(_: any, { input }: { input: CreateUserPayload }) {
     const user = {
@@ -47,6 +55,31 @@ const mutations = {
       id: users.length + 1,
     };
     users.push(user);
+
+    return user;
+  },
+
+  updateUser(_: any, { id, input }: { id: number; input: UpdateUserPayload }) {
+    const userIndex = users.findIndex((user) => String(user.id) === String(id));
+    if (userIndex === -1) {
+      throw new Error(`No user with id: ${id}`);
+    }
+    const user = {
+      ...users[userIndex],
+      ...input,
+    };
+    users[userIndex] = user;
+
+    return user;
+  },
+
+  deleteUser(_: any, { id }: { id: number }) {
+    const userIndex = users.findIndex((user) => String(user.id) === String(id));
+    if (userIndex === -1) {
+      throw new Error(`No user with id: ${id}`);
+    }
+    const user = users[userIndex];
+    users.splice(userIndex, 1);
 
     return user;
   },

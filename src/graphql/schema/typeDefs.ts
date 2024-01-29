@@ -30,7 +30,16 @@ age: Int!
 nationality: String!
 }
 
+input UpdateUserInput{
+name: String
+username: String
+age: Int
+nationality: String
+}
+
 type Mutation {
 createUser(input: CreateUserInput!): User!
+updateUser(id: ID!, input: UpdateUserInput!): User!
+deleteUser(id: ID!): User!
 }
 `;
