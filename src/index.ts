@@ -1,4 +1,5 @@
 import { expressMiddleware } from "@apollo/server/express4";
+import cors from "cors";
 import express from "express";
 import morgan from "morgan";
 import createApolloGraphqlServer from "./graphql";
@@ -9,10 +10,15 @@ const app = express();
   try {
     const PORT = process.env.PORT || 3000;
     const server = await createApolloGraphqlServer();
+    const corsOption = {
+      origin: ["http://localhost:5173"],
+    };
 
     // middlewares
     app.use(morgan("dev"));
     app.use(express.json());
+    app.use(express.urlencoded({ extended: false }));
+    app.use(cors(corsOption));
     app.use(
       "/graphql",
       expressMiddleware(server, {
